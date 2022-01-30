@@ -1,0 +1,39 @@
+.videoEmbed {
+    width: 100vw;
+    max-width: 100%;
+    text-align: center;
+    margin: 80px 20px 20px 0;
+}
+
+.videoEmbed-title {
+    margin-bottom: 40px;
+    font-size: 65px;
+    font-weight: bold;
+    color: #CFB495;
+}
+
+.video-responsive {
+    display: flex;
+    width: 60vw;
+    justify-content: center;
+    margin: auto;
+    padding: 80px 0;
+}
+
+@media screen and (max-width: 750px) {
+    .videoEmbed {
+        margin: 60px 20px 20px 0;
+    }
+
+    .videoEmbed-title {
+        margin-bottom: 10px;
+        font-size: 25px;
+        font-weight: bold;
+        color: #CFB495;
+    }
+
+    .video-responsive {
+        width: 90vw;
+        padding: 20px 0;
+    }
+}

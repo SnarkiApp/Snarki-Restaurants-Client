@@ -1,0 +1,38 @@
+.about {
+    width: 100vw;
+    max-width: 100%;
+    text-align: center;
+    margin-top: 60px;
+    background-color: rgb(61, 67, 79);
+}
+
+.about-title {
+    font-size: 65px;
+    font-weight: bold;
+    color: #CFB495;
+    padding: 80px 0 40px 0;
+}
+
+.about-text {
+    line-height: 2.5;
+    font-size: 20px;
+    font-style: italic;
+    padding: 40px 20% 80px;
+}
+
+@media screen and (max-width: 750px) {
+    .about {
+        margin-top: 40px;
+    }
+
+    .about-title {
+        font-size: 25px;
+        padding: 60px 0 40px 0;
+    }
+
+    .about-text {
+        line-height: 1.5;
+        font-size: 17px;
+        padding: 0 10% 80px;
+    }
+}

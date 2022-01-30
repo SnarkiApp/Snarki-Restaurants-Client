@@ -1,0 +1,8 @@
+.footer {
+    width: 100vw;
+    max-width: 100%;
+    line-height: 6;
+    color: white;
+    text-align: center;
+    background-color: rgb(24,24,24);
+}

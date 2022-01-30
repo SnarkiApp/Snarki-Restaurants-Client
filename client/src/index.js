@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import client from "./apollo/apollo";
 import { ApolloProvider } from 'react-apollo';
+import { BrowserRouter } from "react-router-dom";
 
 import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')

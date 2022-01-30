@@ -1,12 +1,22 @@
-import React from "react";
-import './App.css';
+import React, { useRef } from "react";
+import NavRoutes from "./NavRoutes";
+import Header from "./components/Header/Header";
 
-function App() {
+const App = () => {
+  const bannerRef = useRef(null);
+  const videoRef = useRef(null);
+  const aboutRef = useRef(null);
+
+  const navbarRefs = [
+      bannerRef,
+      videoRef,
+      aboutRef
+  ];
+
   return (
     <div className="App">
-      <header className="App-header">
-        Hello
-      </header>
+      <Header navbarRefs={navbarRefs} />
+      <NavRoutes propRef={{bannerRef, videoRef, aboutRef}} />
     </div>
   );
 }

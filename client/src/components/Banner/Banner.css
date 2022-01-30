@@ -1,0 +1,15 @@
+.banner {
+    width: 100vw;
+    height: 80vh;
+    max-width: 100%;
+    background: url("../../assets/banner.jpg");
+    background-size: cover;
+}
+
+@media screen and (max-width: 750px) {
+    .banner {
+        height: 40vh;
+        background: url("../../assets/banner.jpg");
+        background-size: 100% 40vh;
+    }
+}

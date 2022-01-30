@@ -1,0 +1,99 @@
+.team-header {
+    width: 60vw;
+    margin: 0 auto;
+}
+
+.team-header-title {
+    font-size: 56px;
+    font-weight: 400;
+    padding: 50px 0 0;
+    display: inline-block;
+    position: relative;
+    /* text-shadow: 3px 5px 10px #000; */
+    text-shadow: 0 0 10px #fff,
+        0 0 20px #fff,
+        0 0 30px #fff,
+        0 0 40px orangered,
+        0 0 70px orangered,
+        0 0 80px orangered,
+        0 0 100px orangered,
+        0 0 150px orangered;
+}
+
+.team-card {
+    margin: 100px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card-container {
+    width: 30%;
+    background-color: rgba(197,197,197,0.8);
+}
+
+.card-image {
+    width: 100%;
+    height: 350px;
+}
+
+.card-content {
+    height: 150px;
+    padding: 40px 30px 60px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-style: italic;
+    color: black;
+    font-weight: lighter;
+}
+
+.card-name {
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.card-description {
+    font-size: 18px;
+    font-weight: lighter;
+    margin-top: 20px;
+    white-space: pre-line;
+}
+
+@media screen and (max-width: 970px) {
+
+    .team-card {
+        display: block;
+        width: 80vw;
+        margin: 100px auto;
+    }
+
+    .card-container {
+        width: 60%;
+        margin: 40px auto;
+    }
+
+}
+
+@media screen and (max-width: 750px) {
+    .team-header {
+        width: auto;
+    }
+
+    .team-header-title {
+        font-size: 40px;
+        padding: 50px 20px 0;
+        display: inline-block;
+        position: relative;
+    }
+
+    .team-card {
+        width: 95vw;
+    }
+
+    .card-container {
+        width: 100%;
+        margin: 40px auto;
+    }
+}
