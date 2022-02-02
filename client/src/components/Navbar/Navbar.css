@@ -19,6 +19,12 @@
     font-weight: bold;
 }
 
+@media screen and (max-width: 880px) {
+    .navbar {
+        justify-content: center;
+    }
+}
+
 @media screen and (max-width: 750px) {
     .navbar {
         display: block;

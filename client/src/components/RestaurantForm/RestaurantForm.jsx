@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { useFormik } from 'formik'
+import { useMutation, useLazyQuery } from '@apollo/client';
 import { useNavigate, useParams } from "react-router-dom";
 import AnimatedTextInput from "../AnimatedTextInput/AnimatedTextInput";
+import { REGISTER_USER } from "./mutations/register";
+import { LOGIN_USER } from "./queries/login";
 
 import login from '../../assets/login.svg';
 import "./RestaurantForm.css";
@@ -9,7 +12,13 @@ import "./RestaurantForm.css";
 const RestaurantForm = () => {
 
     const params = useParams();
-    let navigate = useNavigate(); 
+    let navigate = useNavigate();
+    const [error, setErrorMessage] = useState(null);
+    const [registerUser] = useMutation(REGISTER_USER);
+    const [loginUser] = useLazyQuery(LOGIN_USER);
+
+    const isLogin = params.action === "login";
+
     const validate = values => {
         const errors = {};
       
@@ -35,15 +44,46 @@ const RestaurantForm = () => {
             rememberMe: false,
         },
         validate,
-        onSubmit: values => {
-          alert(JSON.stringify(values, null, 2));
+        onSubmit: async (values) => {
+            setErrorMessage(null);
+
+            if (!isLogin) {
+
+                const {data} = await registerUser({
+                    variables: {
+                        email: values.email,
+                        password: values.password
+                    }
+                });
+
+                if (data.register.code !== 201) {
+                    setErrorMessage(data.register.message);
+                } else {
+                    navigate('/snarki/login');
+                }
+
+            } else {
+                
+                const {data} = await loginUser({
+                    variables: {
+                        email: values.email,
+                        password: values.password
+                    }
+                });
+
+                if (data.login.code !== 200) {
+                    setErrorMessage(data.login.message);
+                } else {
+                    // navigate('/snarki/login');
+                    console.log("login done!!");
+                }
+
+            }
         },
     });
 
-    const isLogin = params.action === "login";
-
     return (
-        <div className="restaurantForm">
+        <div className="container">
             <div className="restaurant-form-container">
                 
                 <img className="restaurant-form-image" src={login} alt="Chef" />
@@ -52,7 +92,10 @@ const RestaurantForm = () => {
                     <div className="restaurant-form-title">{
                         isLogin ? "Login" : "Sign Up!"
                     }</div>
-                    <div className="restaurant-form-subtitle">Welcome to the world of Snarki</div>
+                    <div className="restaurant-form-subtitle">
+                        Welcome to the world of Snarki
+                        {error && <div className="error-message"> but {error}</div>}
+                    </div>
                     <form onSubmit={formik.handleSubmit}>
                         <div className="restaurant-form-input">
                             <AnimatedTextInput
@@ -104,6 +147,7 @@ const RestaurantForm = () => {
                                 <>
                                     Don't have an account?
                                     <span onClick={() => {
+                                        setErrorMessage(null);
                                         navigate('/snarki/register');
                                     }}> Sign Up</span>
                                 </>
@@ -111,13 +155,13 @@ const RestaurantForm = () => {
                                 <>
                                     Already have an account?
                                     <span onClick={() => {
+                                        setErrorMessage(null);
                                         navigate('/snarki/login');
                                     }}> Login</span>
                                 </>
                             )
                         }
                     </div>
-
                 </div>
             </div>
         </div>  

@@ -1,0 +1,35 @@
+.restaurant-plan {
+    width: 60vw;
+    margin: 0 auto 30px;
+}
+
+.restaurant-plan-image-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 0;
+}
+
+.restaurant-plan-image {
+    width: 60%;
+    height: 500px;
+    margin: 0 auto;
+}
+
+.plan-title {
+    font-size: 35px;
+    padding: 80px 0;
+    text-shadow: 0 0 10px #fff,
+        0 0 20px #fff,
+        0 0 30px #fff,
+        0 0 40px orangered,
+        0 0 70px orangered,
+        0 0 80px orangered,
+        0 0 100px orangered,
+        0 0 150px orangered;
+}
+
+.plan-subtitle {
+    font-size: 25px;
+    font-weight: lighter;
+    padding: 10px 0;
+}
