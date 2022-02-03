@@ -170,6 +170,7 @@
 
     .plan-details-container {
         width: 100%;
+        margin: 60px auto 0;
     }
 
     .plan-details {
@@ -184,5 +185,9 @@
     .restaurant-plan-image-container {
         height: 400px;
         margin: 0;
+    }
+
+    .plan-pricing-container {
+        margin-top: 60px;
     }
 }

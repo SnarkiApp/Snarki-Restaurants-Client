@@ -11,7 +11,7 @@ const NavRoutes = ({propRef}) => (
         <Route exact path='/contact' element={<Contact />}></Route>
         <Route exact path='/team' element={<Team />}></Route>
         <Route exact path='/snarki/:action' element={<RestaurantForm />}></Route>
-        <Route exact path='/for-restaurants' element={<RestaurantPlan />}></Route>
+        <Route exact path='/premium' element={<RestaurantPlan />}></Route>
         <Route exact path='/' element={<Home propRef={propRef} />}></Route>
     </Routes>
 );
