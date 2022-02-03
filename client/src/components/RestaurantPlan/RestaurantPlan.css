@@ -10,26 +10,179 @@
 }
 
 .restaurant-plan-image {
-    width: 60%;
+    width: 500px;
     height: 500px;
     margin: 0 auto;
 }
 
 .plan-title {
-    font-size: 35px;
-    padding: 80px 0;
+    font-size: 30px;
+    padding: 60px 0 10px;
     text-shadow: 0 0 10px #fff,
         0 0 20px #fff,
         0 0 30px #fff,
+        0 0 0px orangered,
         0 0 40px orangered,
-        0 0 70px orangered,
+        0 0 50px orangered,
         0 0 80px orangered,
-        0 0 100px orangered,
-        0 0 150px orangered;
+        0 0 130px orangered;
 }
 
 .plan-subtitle {
-    font-size: 25px;
+    font-size: 18px;
     font-weight: lighter;
-    padding: 10px 0;
+    padding: 1px 0;
+    line-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.plan-subtitle > svg {
+    margin-right: 10px;
+}
+
+.snarki-price-container {
+    width: 450px;
+    margin: 50px auto;
+    background: #eee;
+    padding-bottom: 30px;
+    box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 12.5px 10px rgba(0, 0, 0, 0.06),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+        0 100px 80px rgba(0, 0, 0, 0.12)
+    ;
+}
+
+.price-heading {
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    padding: 5px 0 10px;
+    background-color:#746AB0;
+}
+
+.plan-type {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.plan-type-subheading {
+    text-align: center;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.plan-pricing-container {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.plan-price {
+    font-size: 60px;
+    font-weight: bolder;
+}
+
+.plan-term {
+    font-weight: lighter;
+}
+
+.plan-details-container {
+    width: 95%;
+    margin: 100px auto 0;
+}
+
+.plan-details {
+    line-height: 3;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.plan-details > svg {
+    margin-right: 5px;
+}
+
+.pricing-submit {
+    width: 60%;
+    display: block;
+    padding: 20px 10px;
+    background-color: #746AB0;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    margin: 60px auto;
+}
+
+.pricing-submit:hover {
+    background-color: #504786;
+}
+
+@media screen and (max-width: 1000px) {
+    .restaurant-plan {
+        width: 80vw;
+        margin: 0 auto 30px;
+    }
+
+    .restaurant-plan-image {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .snarki-price-container {
+        width: 70%;
+        margin: 30px auto 0;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    .restaurant-plan {
+        width: 90vw;
+        max-width: 100%;
+        margin: 0 auto 30px;
+    }
+
+    .snarki-price-container {
+        width: 90%;
+    }
+
+    .plan-subtitle {
+        font-size: 16px;
+        padding: 0;
+        line-height: 30px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .plan-details > svg, .plan-subtitle > svg {
+        display: none;
+    }
+
+    .snarki-price-container {
+        width: 100%;
+    }
+
+    .plan-details-container {
+        width: 100%;
+    }
+
+    .plan-details {
+        font-size: 14px;
+        line-height: 2;
+    }
+
+    .plan-title {
+        font-size: 25px;
+    }
+
+    .restaurant-plan-image-container {
+        height: 400px;
+        margin: 0;
+    }
 }

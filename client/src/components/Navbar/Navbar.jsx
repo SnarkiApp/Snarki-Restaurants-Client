@@ -20,7 +20,7 @@ const Navbar = ({navbarRefs}) => {
             <Link className="navbar-li-link" to="/">About Us</Link>
         </li>
         <li className="navbar-li">
-            <Link className="navbar-li-link" to="/for-restaurants">For Restaurants</Link>
+            <Link className="navbar-li-link" to="/for-restaurants">Premium</Link>
         </li>
         <li className="navbar-li">
             <Link className="navbar-li-link" to="/team">Team</Link>
