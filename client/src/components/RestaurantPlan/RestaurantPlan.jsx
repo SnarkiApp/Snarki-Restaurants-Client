@@ -42,7 +42,7 @@ const RestaurantPlan = () => {
                         Target local customers searching for your cuisine
                     </div>
                     <div className="plan-details">
-                        <FaCheckCircle color="green" color="green" />
+                        <FaCheckCircle color="green" />
                         Populate Higher on our search query
                     </div>
                     <div className="plan-details">

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import AnimatedTextInput from "../AnimatedTextInput/AnimatedTextInput";
 import { REGISTER_USER } from "./mutations/register";
 import { LOGIN_USER } from "./queries/login";
+import DOMPurify from 'dompurify';
 
 import login from '../../assets/login.svg';
 import "./RestaurantForm.css";
@@ -18,6 +19,8 @@ const RestaurantForm = () => {
     const [loginUser] = useLazyQuery(LOGIN_USER);
 
     const isLogin = params.action === "login";
+
+    const cleanData = (value) => DOMPurify.sanitize(value);
 
     const validate = values => {
         const errors = {};
@@ -47,12 +50,15 @@ const RestaurantForm = () => {
         onSubmit: async (values) => {
             setErrorMessage(null);
 
+            const cleanEmail = cleanData(values.email);
+            const cleanPassword = cleanData(values.password);
+
             if (!isLogin) {
 
                 const {data} = await registerUser({
                     variables: {
-                        email: values.email,
-                        password: values.password
+                        email: cleanEmail,
+                        password: cleanPassword
                     }
                 });
 
@@ -66,8 +72,8 @@ const RestaurantForm = () => {
                 
                 const {data} = await loginUser({
                     variables: {
-                        email: values.email,
-                        password: values.password
+                        email:cleanEmail,
+                        password: cleanPassword
                     }
                 });
 

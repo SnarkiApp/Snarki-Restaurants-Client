@@ -69,10 +69,12 @@
 
 .restaurant-form-submit:hover {
     background-color: #483dff;
+    cursor: pointer;
 }
 
 .login-message {
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .login-message span {

@@ -1,9 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import { useFormik } from 'formik';
+import DOMPurify from 'dompurify';
+import { useLazyQuery } from '@apollo/client';
+import {CONTACT_TEAM} from "./queries/contactTeam";
 
 import "./Contact.css";
 
 const Contact = () => {
+
+    const [error, setErrorMessage] = useState(null);
+    const [success, setSuccessMessage] = useState(null);
+    const [contactTeam] = useLazyQuery(CONTACT_TEAM);
 
     const validate = values => {
         const errors = {};
@@ -13,9 +20,15 @@ const Contact = () => {
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
           errors.email = 'Invalid email address';
         }
+
+        if (!values.comments) {
+            errors.comments = 'Required';
+        }
       
         return errors;
     };
+
+    const cleanData = (value) => DOMPurify.sanitize(value);
 
     const formik = useFormik({
         initialValues: {
@@ -25,8 +38,28 @@ const Contact = () => {
             comments: '',
         },
         validate,
-        onSubmit: values => {
-          alert(JSON.stringify(values, null, 2));
+        onSubmit: async (values, { resetForm }) => {
+            const cleanEmail = cleanData(values.email);
+            const cleanFirstName = cleanData(values.firstName);
+            const cleanLastName = cleanData(values.lastName);
+            const cleanComments = cleanData(values.comments);
+
+            const {data} = await contactTeam({
+                variables: {
+                    email: cleanEmail,
+                    firstName: cleanFirstName,
+                    lastName: cleanLastName,
+                    comments: cleanComments
+                }
+            });
+
+            if (data.contact.code !== 200) {
+                setErrorMessage("Not able to contact support at the moment. Please try again later!");
+            } else {
+                setSuccessMessage("Your Query has been received. Thank you!");
+            }
+
+            resetForm();
         },
     });
 
@@ -40,6 +73,8 @@ const Contact = () => {
             </div>
             <div className="contact-chat-container">
                 <div className="contact-chat-title">Let's Chat</div>
+                {error && <div className="error-message">{error}</div>}
+                {success && <div className="success-message">{success}</div>}
 
                 <form onSubmit={formik.handleSubmit}>
                     <div className="contact-chat-form-first">
@@ -95,13 +130,24 @@ const Contact = () => {
                     </div>
                     
                     <div className="contact-chat-form-second">
-                        <label className="contact-chat-form-first-label">Comments</label>
+                        <label className="contact-chat-form-first-label">
+                            Comments<span className="contact-chat-form-error">* </span>
+                            {
+                                formik.touched.comments && formik.errors.comments ? (
+                                    <span className="contact-chat-form-error">
+                                        {formik.errors.comments}
+                                    </span>
+                                ) : null
+                            }
+                        </label>
                         <textarea
                             id="comments"
                             name="comments"
                             type="text"
                             className="contact-chast-form-textarea"
                             onChange={formik.handleChange}
+                            value={formik.values.comments}
+                            onBlur={formik.handleBlur}
                         ></textarea>
                     </div>
                 

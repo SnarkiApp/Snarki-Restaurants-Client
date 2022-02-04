@@ -38,12 +38,13 @@
 
 .contact-chat-title {
     font-size: 35px;
-    padding: 40px 0;
+    padding: 40px 0 0;
 }
 
 .contact-chat-form-first {
     display: flex;
     justify-content: space-between;
+    margin-top: 40px;
 }
 
 .contact-chat-form-first-label {
@@ -86,6 +87,18 @@
 
 .chat-form-button:hover {
     background-color: slategray;
+}
+
+.error-message {
+    width: 100%;
+    color: red;
+    font-weight: bold;
+}
+
+.success-message {
+    width: 100%;
+    color: green;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 750px) {

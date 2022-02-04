@@ -13,6 +13,10 @@
     color: white;
 }
 
+.navbar-li-link:hover {
+    color: #CFB495;
+}
+
 .link-focused {
     font-size: 22px;
     color: #CFB495;
