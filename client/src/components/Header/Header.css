@@ -30,15 +30,14 @@
 
 @media screen and (max-width: 880px) {
     .header {
-        height: auto;
-        display: block;
-        padding-bottom: 20px;
         position: relative;
+        justify-content: flex-start;
+        align-items: center;
     }
 
     .header-left {
+        width: 100%;
         justify-content: center;
-        margin-bottom: 20px;
     }
 }
 

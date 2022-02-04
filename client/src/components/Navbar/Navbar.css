@@ -25,17 +25,6 @@
 
 @media screen and (max-width: 880px) {
     .navbar {
-        justify-content: center;
-    }
-}
-
-@media screen and (max-width: 750px) {
-    .navbar {
-        display: block;
-        text-align: center;
-    }
-
-    .navbar-li {
-        margin: 0 0 20px 0;
+        display: none;
     }
 }
