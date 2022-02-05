@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { useFormik } from 'formik'
 import { useMutation, useLazyQuery } from '@apollo/client';
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,7 +6,7 @@ import AnimatedTextInput from "../AnimatedTextInput/AnimatedTextInput";
 import { REGISTER_USER } from "./mutations/register";
 import { LOGIN_USER } from "./queries/login";
 import DOMPurify from 'dompurify';
-
+import { UserContext } from "../../providers/User/UserProvider";
 import login from '../../assets/login.svg';
 import "./RestaurantForm.css";
 
@@ -17,6 +17,7 @@ const RestaurantForm = () => {
     const [error, setErrorMessage] = useState(null);
     const [registerUser] = useMutation(REGISTER_USER);
     const [loginUser] = useLazyQuery(LOGIN_USER);
+    const {updateUser} = useContext(UserContext);
 
     const isLogin = params.action === "login";
 
@@ -80,7 +81,8 @@ const RestaurantForm = () => {
                 if (data.login.code !== 200) {
                     setErrorMessage(data.login.message);
                 } else {
-                    // navigate('/snarki/login');
+                    localStorage.setItem("token", data.login.token);
+                    updateUser(data.login.meData);
                     console.log("login done!!");
                 }
 

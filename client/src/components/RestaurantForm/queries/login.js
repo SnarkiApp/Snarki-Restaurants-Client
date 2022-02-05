@@ -10,7 +10,11 @@ export const LOGIN_USER = gql`
             password: $password
         ) {
             code
+            token
             message
+            meData {
+                email
+            }
         }
     }
 `;

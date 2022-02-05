@@ -32,5 +32,11 @@ export const SidebarData = [
     path: '/snarki/register',
     icon: <IoIcons.IoIosLogIn />,
     cName: 'sidebar-text'
+  },
+  {
+    title: 'Dashboard',
+    path: '/dashboard',
+    icon: <IoIcons.IoIosLogIn />,
+    cName: 'sidebar-text'
   }
 ];
