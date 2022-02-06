@@ -58,6 +58,7 @@ const RestaurantForm = () => {
 
                 const {data} = await registerUser({
                     variables: {
+                        role: "restaurant",
                         email: cleanEmail,
                         password: cleanPassword
                     }

@@ -108,7 +108,14 @@ const Contact = () => {
 
                         <div>
                             <label htmlFor="email" className="contact-chat-form-first-label">
-                                Email <span className="contact-chat-form-error">*</span>
+                                Email<span className="contact-chat-form-error">* </span>
+                                {
+                                    formik.touched.email && formik.errors.email ? (
+                                        <span className="contact-chat-form-error">
+                                            {formik.errors.email}
+                                        </span>
+                                    ) : null
+                                }
                             </label>
                             <input
                                 id="email"
@@ -119,13 +126,6 @@ const Contact = () => {
                                 onBlur={formik.handleBlur}
                                 value={formik.values.email}
                             />
-                            {
-                                formik.touched.email && formik.errors.email ? (
-                                    <div className="contact-chat-form-error">
-                                        {formik.errors.email}
-                                    </div>
-                                ) : null
-                            }
                         </div>
                     </div>
                     

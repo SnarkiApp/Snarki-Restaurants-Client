@@ -16,7 +16,7 @@ const NavRoutes = ({propRef}) => {
             <Route exact path='/team' element={<Team />}></Route>
             <Route exact path='/premium' element={<RestaurantPlan />}></Route>
             <Route exact path='/' element={<Home propRef={propRef} />}></Route>
-            <Route path='/dashboard' element={!user ? <Navigate to="/snarki/register" /> : <RestaurantForm />} />
+            <Route path='/dashboard' element={!user ? <Navigate to="/snarki/register" /> : <RestaurantPlan />} />
             <Route path='/snarki/:action' element={user ? <Navigate to="/dashboard" /> : <RestaurantForm />} />
         </Routes>
     );

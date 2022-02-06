@@ -30,7 +30,6 @@
 
 @media screen and (max-width: 880px) {
     .header {
-        position: relative;
         justify-content: flex-start;
         align-items: center;
     }
