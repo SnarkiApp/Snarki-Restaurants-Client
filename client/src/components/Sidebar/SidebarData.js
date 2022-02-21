@@ -36,7 +36,34 @@ export const SidebarData = [
   {
     title: 'Dashboard',
     path: '/dashboard',
-    icon: <IoIcons.IoIosLogIn />,
+    icon: <AiIcons.AiFillDashboard />,
     cName: 'sidebar-text'
+  }
+];
+
+export const DashboardSidebarData = [
+  {
+    title: 'Home',
+    path: '/',
+    icon: <AiIcons.AiFillHome />,
+    cName: 'sidebar-text'
+  },
+  {
+    title: 'Dashbaord',
+    path: '/dashboard',
+    icon: <AiIcons.AiFillDashboard />,
+    cName: 'sidebar-text'
+  },
+  {
+    title: 'Settings',
+    path: '/dashboard/settings',
+    icon: <AiIcons.AiFillSetting />,
+    cName: 'sidebar-text'
+  },
+  {
+    title: 'Log Out',
+    path: '/logOut',
+    icon: <IoIcons.IoIosLogOut />,
+    cName: 'sidebar-text',
   }
 ];

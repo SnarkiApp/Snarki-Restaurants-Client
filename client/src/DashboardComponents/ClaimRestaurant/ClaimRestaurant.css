@@ -1,0 +1,43 @@
+.claim-restaurant-container {
+    width: 80vw;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.claim-restaurant-spacing {
+    margin-top: 40px;
+}
+
+.claim-restaurant-title {
+    font-size: 25px;
+}
+
+.claim-restaurant-upload-title {
+    font-size: 25px;
+}
+
+.upload-document-container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 50px;
+    text-align: center;
+    border: 1px dashed black;
+    margin-top: 40px;
+}
+
+.claim-restaurant-message {
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.additional-message {
+    font-size: 16px;
+    font-weight: lighter;
+    text-align: center;
+}
+
+.message-green { color: green; }
+.message-red { color: red; }

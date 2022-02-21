@@ -58,7 +58,7 @@ const RestaurantForm = () => {
 
                 const {data} = await registerUser({
                     variables: {
-                        role: "restaurant",
+                        role: "RESTAURANT",
                         email: cleanEmail,
                         password: cleanPassword
                     }
@@ -84,7 +84,6 @@ const RestaurantForm = () => {
                 } else {
                     localStorage.setItem("token", data.login.token);
                     updateUser(data.login.meData);
-                    console.log("login done!!");
                 }
 
             }

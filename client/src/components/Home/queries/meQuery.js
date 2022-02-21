@@ -7,6 +7,8 @@ export const ME_QUERY = gql`
             message
             meData {
                 email
+                role
+                verified
             }
         }
     }

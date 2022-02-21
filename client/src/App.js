@@ -2,20 +2,23 @@ import React, { useEffect, useRef, useState } from "react";
 import NavRoutes from "./NavRoutes";
 import { useQuery } from "@apollo/client";
 import Header from "./components/Header/Header";
+import DashHeader from "./DashboardComponents/Header/DashHeader";
 import {ME_QUERY} from "./components/Home/queries/meQuery";
 import {UserContextProvider} from "./providers/User/UserProvider";
+import { useLocation } from 'react-router-dom'
 
 const App = () => {
   const bannerRef = useRef(null);
   const videoRef = useRef(null);
   const aboutRef = useRef(null);
-  const [user, setUser] = useState(null);
+  const location = useLocation();
+
   const { loading, error, data } = useQuery(ME_QUERY, {
     fetchPolicy: 'network-only'
   });
-
   if (error) console.log("failed to fetch me data");
 
+  const [user, setUser] = useState(null);
   const updateUser = (userData) => setUser(userData);
 
   useEffect(() => {
@@ -25,9 +28,9 @@ const App = () => {
   }, [loading]);
 
   const navbarRefs = [
-      bannerRef,
-      videoRef,
-      aboutRef
+    bannerRef,
+    videoRef,
+    aboutRef
   ];
 
   return (
@@ -36,7 +39,12 @@ const App = () => {
       updateUser
     }}>
       <div className="App">
-        <Header navbarRefs={navbarRefs} />
+        {
+          user && location.pathname.includes("/dashboard") ?
+            <DashHeader /> :
+            <Header navbarRefs={navbarRefs} />
+        }
+
         <NavRoutes propRef={{bannerRef, videoRef, aboutRef}} />
       </div>
     </UserContextProvider>

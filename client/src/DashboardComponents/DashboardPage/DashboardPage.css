@@ -1,0 +1,80 @@
+.dashboard-page-container {
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.unverified-actions, .restaurants-list-container {
+    width: 60vw;
+    margin-top: 50px;
+}
+
+.unverified-actions-heading {
+    font-size: 25px;
+    padding: 10px 0;
+    color:#CFB495;
+    font-weight: bold;
+}
+
+.unverified-actions-input {
+    width: 80%;
+    outline: 0;
+    height: 30px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 25px;
+}
+
+.actions-input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.actions-input-container > button {
+    width: 20%;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.actions-input-container > button:hover {
+    outline: 0;
+    background-color: darkgray;
+}
+
+.restaurant-list-item {
+    width: 100%;
+    padding: 15px 0;
+    border: 1px solid grey;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.restaurant-list-item:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.restaurant-list-item-details > span {
+    display: block;
+}
+
+.restaurant-list-item-details {
+    width: 70%;
+}
+
+.restaurant-address {
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.add-restaurant {
+    font-size: 25px;
+}

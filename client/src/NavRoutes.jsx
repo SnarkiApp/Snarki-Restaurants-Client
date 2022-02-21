@@ -5,6 +5,10 @@ import Home from './components/Home/Home';
 import Team from './components/Team/Team';
 import RestaurantForm from './components/RestaurantForm/RestaurantForm';
 import RestaurantPlan from './components/RestaurantPlan/RestaurantPlan';
+import ProtectedRoute from './components/ProtectedRoutes/ProtectedRoutes';
+import DashboardPage from './DashboardComponents/DashboardPage/DashboardPage';
+import ClaimRestaurant from './DashboardComponents/ClaimRestaurant/ClaimRestaurant';
+import AddRestaurant from './DashboardComponents/AddRestaurant/AddRestaurant';
 import { UserContext } from './providers/User/UserProvider';
 
 const NavRoutes = ({propRef}) => {
@@ -12,12 +16,18 @@ const NavRoutes = ({propRef}) => {
 
     return (
         <Routes>
-            <Route exact path='/contact' element={<Contact />}></Route>
-            <Route exact path='/team' element={<Team />}></Route>
-            <Route exact path='/premium' element={<RestaurantPlan />}></Route>
-            <Route exact path='/' element={<Home propRef={propRef} />}></Route>
-            <Route path='/dashboard' element={!user ? <Navigate to="/snarki/register" /> : <RestaurantPlan />} />
-            <Route path='/snarki/:action' element={user ? <Navigate to="/dashboard" /> : <RestaurantForm />} />
+            <Route exact path='/contact' element={<Contact />} />
+            <Route exact path='/team' element={<Team />} />
+            <Route exact path='/premium' element={<RestaurantPlan />} />
+            <Route exact path='/' element={<Home propRef={propRef} />} />
+            <Route path='/snarki/:action' element={
+                user ? <Navigate to="/dashboard" /> : <RestaurantForm />
+            } />
+            <Route path='/dashboard' element={<ProtectedRoute />}>
+                <Route exact path='/dashboard' element={<DashboardPage />}/>
+                <Route exact path='/dashboard/claim-restaurant' element={<ClaimRestaurant />}/>
+                <Route exact path='/dashboard/add-restaurant' element={<AddRestaurant />}/>
+            </Route>
         </Routes>
     );
 };

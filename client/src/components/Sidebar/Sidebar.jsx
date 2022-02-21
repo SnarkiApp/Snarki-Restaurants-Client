@@ -2,19 +2,22 @@ import React, { useState, useContext } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { IconContext } from 'react-icons';
-import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
+import { Link, useNavigate } from 'react-router-dom';
+import { SidebarData, DashboardSidebarData } from './SidebarData';
 import {UserContext} from "../../providers/User/UserProvider";
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({dashboard = false}) => {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
-  const {user} = useContext(UserContext);
+  const {user, updateUser} = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const sidebarDataList = !dashboard ? SidebarData : DashboardSidebarData;
 
   return (
     <IconContext.Provider value={{ color: '#fff' }}>
-      <div className='sidebar'>
+      <div className={!dashboard ? 'sidebar' : 'dashboard-sidebar' }>
         <Link to='#' className='menu-bars'>
           <FaIcons.FaBars onClick={showSidebar} />
         </Link>
@@ -26,24 +29,41 @@ const Sidebar = () => {
               <AiIcons.AiOutlineClose />
             </Link>
           </li>
-          {SidebarData.map((item, index) => {
+          {
+            sidebarDataList.map((item, index) => {
 
-            if (item.path === '/snarki/register' && user) {
-              return null;
-            }
-            if (item.path === '/dashboard' && !user) {
-              return null;
-            }
+              if (item.path === '/snarki/register' && user) {
+                return null;
+              }
+              if (item.path === '/dashboard' && !user) {
+                return null;
+              }
 
-            return (
-              <li key={index} className={item.cName}>
-                <Link to={item.path}>
-                  {item.icon}
-                  <span className="sidebar-items">{item.title}</span>
-                </Link>
-              </li>
-            );
-          })}
+              if (item.path === '/logOut') {
+                return (
+                  <li key={index} className={item.cName} onClick={() => {
+                    localStorage.clear();
+                    updateUser(null);
+                    navigate("/");
+                  }}>
+                    <span className='non-link-item'>
+                      {item.icon}
+                      <span className="sidebar-items">{item.title}</span>
+                    </span>
+                  </li>
+                )
+              }
+
+              return (
+                <li key={index} className={item.cName}>
+                  <Link to={item.path}>
+                    {item.icon}
+                    <span className="sidebar-items">{item.title}</span>
+                  </Link>
+                </li>
+              );
+            })
+          }
         </ul>
       </nav>
     </IconContext.Provider>

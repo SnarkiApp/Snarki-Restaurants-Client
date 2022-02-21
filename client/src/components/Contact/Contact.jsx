@@ -85,7 +85,7 @@ const Contact = () => {
                             <input
                                 id="firstName"
                                 name="firstName"
-                                type="firstName"
+                                type="text"
                                 className="contact-chat-form-first-input"
                                 onChange={formik.handleChange}
                                 value={formik.values.firstName}
@@ -99,7 +99,7 @@ const Contact = () => {
                             <input
                                 id="lastName"
                                 name="lastName"
-                                type="lastName"
+                                type="text"
                                 className="contact-chat-form-first-input"
                                 onChange={formik.handleChange}
                                 value={formik.values.lastName}
@@ -120,7 +120,7 @@ const Contact = () => {
                             <input
                                 id="email"
                                 name="email"
-                                type="email"
+                                type="text"
                                 className="contact-chat-form-first-input"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
