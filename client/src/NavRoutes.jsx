@@ -8,7 +8,7 @@ import RestaurantPlan from './components/RestaurantPlan/RestaurantPlan';
 import ProtectedRoute from './components/ProtectedRoutes/ProtectedRoutes';
 import DashboardPage from './DashboardComponents/DashboardPage/DashboardPage';
 import ClaimRestaurant from './DashboardComponents/ClaimRestaurant/ClaimRestaurant';
-import AddRestaurant from './DashboardComponents/AddRestaurant/AddRestaurant';
+import AddRestaurantBasic from './DashboardComponents/AddRestaurantBasic/AddRestaurantBasic';
 import { UserContext } from './providers/User/UserProvider';
 
 const NavRoutes = ({propRef}) => {
@@ -26,7 +26,7 @@ const NavRoutes = ({propRef}) => {
             <Route path='/dashboard' element={<ProtectedRoute />}>
                 <Route exact path='/dashboard' element={<DashboardPage />}/>
                 <Route exact path='/dashboard/claim-restaurant' element={<ClaimRestaurant />}/>
-                <Route exact path='/dashboard/add-restaurant' element={<AddRestaurant />}/>
+                <Route exact path='/dashboard/add-restaurant' element={<AddRestaurantBasic />}/>
             </Route>
         </Routes>
     );

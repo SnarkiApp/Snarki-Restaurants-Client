@@ -1,0 +1,151 @@
+.add-restaurant-container {
+    width: 60vw;
+    margin: 30px auto 50px;
+}
+
+.add-restaurant-heading {
+    font-size: 30px;
+    display: block;
+    text-align: center;
+    margin: 50px 0;
+    text-decoration: underline;
+}
+
+.flex-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.add-restaurant-full-div {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.add-restaurant-div {
+    width: 47%;
+    margin-top: 15px;
+}
+
+.add-restaurant-label {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.add-restaurant-input {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.add-restaurant-submit {
+    display: block;
+    width: 30%;
+    margin: 60px auto 0;
+    padding: 20px 10px;
+    background-color: #6c63ff;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+}
+
+.add-restaurant-submit:hover {
+    background-color: #483dff;
+    cursor: pointer;
+}
+
+.add-restaurant-error {
+    color: red;
+    font-size: 16px;
+}
+
+.required-star {
+    color: red;
+}
+
+.add-restaurant-message {
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.additional-message {
+    font-size: 16px;
+    font-weight: lighter;
+    text-align: center;
+}
+.message-red { color: red; }
+
+.add-restaurant-upload-title {
+    margin-top: 50px;
+    font-size: 22px;
+}
+
+.add-restaurant-upload-document-container {
+    margin: 0 auto;
+    padding: 50px;
+    text-align: center;
+    border: 1px dashed black;
+    margin-top: 40px;
+}
+
+.overlay {
+    pointer-events: none;
+}
+
+.processing-message {
+    display: flex;
+    align-items: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .add-restaurant-container {
+        width: 80vw;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .add-restaurant-label {
+        font-size: 16px;
+    }
+
+    .add-restaurant-upload-title {
+        font-size: 18px;
+    }
+
+    .add-restaurant-upload-document-container {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .flex-container {
+        display: block;
+    }
+
+    .add-restaurant-div {
+        width: 100%;
+    }
+
+    .add-restaurant-message {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .add-restaurant-heading {
+        font-size: 22px;
+    }
+
+    .add-restaurant-submit {
+        width: 50%;
+    }
+}

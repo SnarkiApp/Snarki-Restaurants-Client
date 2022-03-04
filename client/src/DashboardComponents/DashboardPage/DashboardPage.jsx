@@ -1,13 +1,14 @@
 import React, {useContext, useState} from "react";
-import { useFormik } from 'formik'
-import DOMPurify from 'dompurify';
+import { useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
-import {IoIosRestaurant, IoIosArrowRoundForward} from 'react-icons/io';
+import {IoIosRestaurant, IoIosArrowRoundForward, IoIosSearch} from 'react-icons/io';
 import { useLazyQuery } from '@apollo/client';
 import {UserContext} from "../../providers/User/UserProvider";
 import {GET_RESTAURANTS} from "./queries/getRestaurants";
 import { useDispatch } from 'react-redux';
+import { cleanData } from "../../utils/DOMPurify";
 import {setClaimRestaurant} from '../../redux/reducers/addClaimRestaurant';
+
 import "./DashboardPage.css";
 
 const DashboardPage = () => {
@@ -16,8 +17,6 @@ const DashboardPage = () => {
     const {user} = useContext(UserContext);
     const [restaurantsList, setRestaurantsList] = useState([]);
     const [getRestaurants] = useLazyQuery(GET_RESTAURANTS);
-
-    const cleanData = (value) => DOMPurify.sanitize(value);
 
     const formik = useFormik({
         initialValues: {
@@ -62,7 +61,12 @@ const DashboardPage = () => {
                                     className="unverified-actions-input"
                                     value={formik.values.restaurantName}
                                 />
-                                <button type="submit">Search</button>
+                                <button type="submit">
+                                    <IoIosSearch
+                                        size={window.innerWidth < 450 ? 25 : 30}
+                                        className="restaurant-list-trailing"
+                                    />
+                                </button>
                             </div>
                         </form>
 
@@ -75,7 +79,7 @@ const DashboardPage = () => {
                                             navigate("/dashboard/claim-restaurant");
                                         }}>
                                             <IoIosRestaurant
-                                                size={60}
+                                                size={window.innerWidth < 450 ? 40 : 60}
                                                 className="restaurant-list-leading"
                                             />
                                             <div className="restaurant-list-item-details">
@@ -88,7 +92,7 @@ const DashboardPage = () => {
                                                 </span>
                                             </div>
                                             <IoIosArrowRoundForward
-                                                size={55}
+                                                size={window.innerWidth < 450 ? 40 : 55}
                                                 className="restaurant-list-trailing"
                                             />
                                         </div>
@@ -98,14 +102,14 @@ const DashboardPage = () => {
                                         navigate("/dashboard/add-restaurant")
                                     }}>
                                         <IoIosRestaurant
-                                            size={60}
+                                            size={window.innerWidth < 450 ? 40 : 60}
                                             className="restaurant-list-leading"
                                         />
                                         <div className="restaurant-list-item-details">
                                             <span className="add-restaurant">Add a new Restaurant</span>
                                         </div>
                                         <IoIosArrowRoundForward
-                                            size={55}
+                                            size={window.innerWidth < 450 ? 40 : 55}
                                             className="restaurant-list-trailing"
                                         />
                                     </div>

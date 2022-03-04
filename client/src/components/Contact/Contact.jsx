@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { useFormik } from 'formik';
-import DOMPurify from 'dompurify';
+import { cleanData } from "../../utils/DOMPurify";
 import { useLazyQuery } from '@apollo/client';
 import {CONTACT_TEAM} from "./queries/contactTeam";
 
@@ -27,8 +27,6 @@ const Contact = () => {
       
         return errors;
     };
-
-    const cleanData = (value) => DOMPurify.sanitize(value);
 
     const formik = useFormik({
         initialValues: {

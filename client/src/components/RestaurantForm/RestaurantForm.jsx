@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import AnimatedTextInput from "../AnimatedTextInput/AnimatedTextInput";
 import { REGISTER_USER } from "./mutations/register";
 import { LOGIN_USER } from "./queries/login";
-import DOMPurify from 'dompurify';
+import { cleanData } from "../../utils/DOMPurify";
 import { UserContext } from "../../providers/User/UserProvider";
 import login from '../../assets/login.svg';
 import "./RestaurantForm.css";
@@ -20,8 +20,6 @@ const RestaurantForm = () => {
     const {updateUser} = useContext(UserContext);
 
     const isLogin = params.action === "login";
-
-    const cleanData = (value) => DOMPurify.sanitize(value);
 
     const validate = values => {
         const errors = {};

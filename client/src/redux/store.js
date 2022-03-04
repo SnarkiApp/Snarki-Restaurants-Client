@@ -3,6 +3,7 @@ import {combineReducers} from "redux";
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import addClaimRestaurantReducer from './reducers/addClaimRestaurant';
+import registerRestaurantReducer from './reducers/registerRestaurant';
 
 const persistConfig = {
   key: 'snarki-persist-key',
@@ -10,7 +11,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  addClaimRestaurant: addClaimRestaurantReducer
+  addClaimRestaurant: addClaimRestaurantReducer,
+  registerRestaurant: registerRestaurantReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

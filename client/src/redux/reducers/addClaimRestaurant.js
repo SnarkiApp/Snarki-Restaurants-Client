@@ -6,15 +6,12 @@ export const addClaimRestaurantSlice = createSlice({
     addClaimRestaurant: {}
   },
   reducers: {
-    setAddRestaurant: (state, action) => {
-        state.addClaimRestaurant = action.payload
-    },
     setClaimRestaurant: (state, action) => {
         state.addClaimRestaurant = action.payload
     },
   },
 });
 
-export const { setAddRestaurant, setClaimRestaurant } = addClaimRestaurantSlice.actions;
+export const { setClaimRestaurant } = addClaimRestaurantSlice.actions;
 
 export default addClaimRestaurantSlice.reducer;

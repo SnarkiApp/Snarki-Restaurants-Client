@@ -1,7 +1,6 @@
 .claim-restaurant-container {
-    width: 80vw;
     width: 50%;
-    margin: 0 auto;
+    margin: 0 auto 40px;
 }
 
 .claim-restaurant-spacing {
@@ -41,3 +40,13 @@
 
 .message-green { color: green; }
 .message-red { color: red; }
+
+@media screen and (max-width: 880px) {
+    .claim-restaurant-container {
+        width: 90%;
+    }
+
+    .claim-restaurant-message {
+        font-size: 18px;
+    }
+}
