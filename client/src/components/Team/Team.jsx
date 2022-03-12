@@ -2,6 +2,7 @@ import React from "react";
 
 import profilePic1 from '../../assets/profilePic1.jpg';
 import profilePic2 from '../../assets/profilePic2.jpeg';
+import profilePic3 from '../../assets/profilePic3.jpg';
 import "./Team.css";
 
 const Card = ({title, name, description, src}) => (
@@ -29,7 +30,7 @@ const Team = () => {
                     title={"Founder and CEO"}
                     name={"Tj Franco"}
                     description={
-                        `B.S. in Business Management from the Dolan School of Business at Fairfield University.
+                        `B.S. in Business Management from the Dolan School of Business at Fairfield University.\n
                         6+ years in Management`
                     }
                 />
@@ -39,17 +40,17 @@ const Team = () => {
                     title={"Chief Revenue Officer"}
                     name={"Jean Carlos Martinez"}
                     description={
-                        `B.S. in Economics from SUNY Binghamton.
+                        `B.S. in Economics from SUNY Binghamton.\n
                         5+ years in Sales`
                     }
                 />
 
                 <Card
-                    src={profilePic1}
+                    src={profilePic3}
                     title={"Chief Technology Officer"}
                     name={"Shubham Sapra"}
                     description={
-                        `B.E. in Computer Science from Chitkara University.
+                        `B.E. in Computer Science from Chitkara University.\n
                         3+ Years as FullStack Engineer`
                     }
                 />

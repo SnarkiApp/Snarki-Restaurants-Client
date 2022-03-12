@@ -40,3 +40,13 @@
     }
 }
 
+@media screen and (max-width: 500px) {
+    .header-left-title {
+        font-size: 30px;
+    }
+    
+    .header-left-icon {
+        width: 30px;
+        height: 30px;
+    }
+}

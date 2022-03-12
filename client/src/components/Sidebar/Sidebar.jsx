@@ -19,7 +19,10 @@ const Sidebar = ({dashboard = false}) => {
     <IconContext.Provider value={{ color: '#fff' }}>
       <div className={!dashboard ? 'sidebar' : 'dashboard-sidebar' }>
         <Link to='#' className='menu-bars'>
-          <FaIcons.FaBars onClick={showSidebar} />
+          <FaIcons.FaBars
+            onClick={showSidebar}
+            size={window.innerWidth > 500 ? 30 : 25}
+          />
         </Link>
       </div>
       <nav className={sidebar ? 'sidebar-menu active' : 'sidebar-menu'}>

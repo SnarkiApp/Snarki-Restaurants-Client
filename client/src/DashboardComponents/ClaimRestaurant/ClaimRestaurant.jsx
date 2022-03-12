@@ -88,7 +88,7 @@ const ClaimRestaurant = () => {
         });
 
         if (response.data.addClaimDocuments.code !== 200) {
-            setMessage({type: "failure", message: "Something went wrong Please try again!"});
+            setMessage({type: "failure", message: response.data.addClaimDocuments.message});
             return;
         }
 
