@@ -10,13 +10,16 @@ import "./ClaimRestaurant.css";
 
 const ClaimRestaurant = () => {
     const [message, setMessage] = useState({});
+    const [uploadStatus, setUploadStatus] = useState({});
     const [loading, setLoading] = useState(false);
+    const [documentKeys, setDocumentKeys] = useState(new Set());
     const claimRestaurant = useSelector((state) => state.addClaimRestaurant);
     const [postPresignedUrls] = useLazyQuery(POST_PRESIGNED_URLS);
     const [addDocuments] = useMutation(ADD_CLAIM_DOCUMENTS);
 
     const onDrop = useCallback(async (acceptedFiles) => {
         setMessage({});
+        setUploadStatus({});
         const {data} = await postPresignedUrls({
             variables: {
                 category: "claim",
@@ -34,11 +37,9 @@ const ClaimRestaurant = () => {
         }
 
         const postUrls = data.postUploadUrl.urls;
-        const documentKeys = [];
         const promiseList = [];
-
         for(let index = 0; index < postUrls.length; index++) {
-            const fileSizeCheck = acceptedFiles[index].size <= 500000;
+            const fileSizeCheck = acceptedFiles[index].size <= 5000000;
             const fileTypeCheck = acceptedFiles[index].type === "application/pdf";
 
             if (!fileSizeCheck) {
@@ -73,7 +74,10 @@ const ClaimRestaurant = () => {
                 method: 'POST',
                 body: formData
             };
-            documentKeys.push(content["fields"]["key"]);
+            setDocumentKeys(prevState => new Set([
+                ...prevState,
+                content["fields"]["key"]
+            ]));
             promiseList.push(fetch(content.url, requestOptions));
         }
 
@@ -83,25 +87,36 @@ const ClaimRestaurant = () => {
             if (uploadResult[index].status !== 204) success = false;
         }
 
-        const response = await addDocuments({
-            variables: {
-                documents: documentKeys,
-                _id: claimRestaurant.addClaimRestaurant._id
-            }
-        });
-
-        if (response.data.addClaimDocuments.code !== 200) {
-            setLoading(false);
-            setMessage({type: "failure", message: response.data.addClaimDocuments.message});
-            return;
+        if (success) setUploadStatus({type: "success", message: "Files Uploaded successfully!"});
+        else {
+            setUploadStatus({type: "failure", message: "Something went wrong! Please try again!"});
+            if (documentKeys.size) setDocumentKeys(new Set());
         }
-
-        if (success) setMessage({type: "success", message: "Files Uploaded successfully!"});
-        else setMessage({type: "failure", message: "Something went wrong! Please try again!"});
         setLoading(false);
 
     }, []);
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+
+    const submitClaimRequest = async () => {        
+        if (documentKeys.size && uploadStatus.type === "success") {
+            const response = await addDocuments({
+                variables: {
+                    documents: [...documentKeys],
+                    _id: claimRestaurant.addClaimRestaurant._id
+                }
+            });
+            
+            if (loading) setLoading(false);
+            if (documentKeys.size) setDocumentKeys(new Set());
+            if (response.data.addClaimDocuments.code !== 200) {
+                setMessage({type: "failure", message: response.data.addClaimDocuments.message});
+                return;
+            }
+            setMessage({type: "success", message: 'Claim Request Submitted!!'});
+        }
+        if (documentKeys.size) setDocumentKeys(new Set());
+        if (loading) setLoading(false);
+    }
     
     return (
     <div className="claim-restaurant-container">
@@ -122,12 +137,16 @@ const ClaimRestaurant = () => {
             Upload Claim Documents
         </div>
         {
-            loading ? (
-                <div className="processing-message">
-                    {"Uploading... "}
-                    <TailSpin ariaLabel="loading-indicator" width={30} />
-                </div>
-            ) : null
+            Object.keys(uploadStatus).length ?
+                <div className="add-restaurant-upload-message">
+                    <span className={uploadStatus.type === "success" ? "message-green" : "message-red"}>{uploadStatus.message}</span>
+                </div> : (
+                    loading ?
+                    <div className="processing-message">
+                        {"Uploading... "}
+                        <TailSpin ariaLabel="loading-indicator" width={30} />
+                    </div> : null
+                )
         }
         <div {...getRootProps()} className="upload-document-container">
             <input {...getInputProps()} />
@@ -137,6 +156,15 @@ const ClaimRestaurant = () => {
                 <p>Drag 'n' drop / Click</p>
             }
         </div>
+
+        <button
+            type="submit"
+            className="add-restaurant-submit"
+            disabled={!documentKeys.size || uploadStatus.type !== "success"}
+            onClick={submitClaimRequest}
+        >
+            Submit
+        </button>
 
         {
             Object.keys(message).length ?

@@ -49,7 +49,7 @@ const AddRestaurantBasic = () => {
         const promiseList = [];
 
         for(let index = 0; index < postUrls.length; index++) {
-            const fileSizeCheck = acceptedFiles[index].size <= 500000;
+            const fileSizeCheck = acceptedFiles[index].size <= 5000000;
             const fileTypeCheck = type === "image/" ?
                 acceptedFiles[index].type.includes("image/")
                 : acceptedFiles[index].type === type;
