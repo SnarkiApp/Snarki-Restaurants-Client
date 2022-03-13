@@ -37,6 +37,8 @@ const Contact = () => {
         },
         validate,
         onSubmit: async (values, { resetForm }) => {
+            setErrorMessage("");
+            setSuccessMessage("");
             const cleanEmail = cleanData(values.email);
             const cleanFirstName = cleanData(values.firstName);
             const cleanLastName = cleanData(values.lastName);

@@ -7,6 +7,7 @@ import {UserContext} from "../../providers/User/UserProvider";
 import {GET_RESTAURANTS} from "./queries/getRestaurants";
 import { useDispatch } from 'react-redux';
 import { cleanData } from "../../utils/DOMPurify";
+import { TailSpin } from "react-loader-spinner";
 import {setClaimRestaurant} from '../../redux/reducers/addClaimRestaurant';
 
 import "./DashboardPage.css";
@@ -15,6 +16,7 @@ const DashboardPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {user} = useContext(UserContext);
+    const [loading, setLoading] = useState(false);
     const [restaurantsList, setRestaurantsList] = useState([]);
     const [getRestaurants] = useLazyQuery(GET_RESTAURANTS);
 
@@ -24,6 +26,7 @@ const DashboardPage = () => {
         },
         onSubmit: async (values) => {
             const cleanRestaurantName = cleanData(values.restaurantName);
+            setLoading(true);
 
             if (cleanRestaurantName) {
                 const {data} = await getRestaurants({
@@ -32,7 +35,9 @@ const DashboardPage = () => {
                     },
                 });
                 setRestaurantsList(data.getRestaurants.restaurants);
-            }
+            } else setRestaurantsList([]);
+
+            setLoading(false);
         },
     });
 
@@ -97,23 +102,32 @@ const DashboardPage = () => {
                                             />
                                         </div>
                                     ))
-                                ) : (
-                                    <div className="restaurant-list-item" onClick={() => {
-                                        navigate("/dashboard/add-restaurant")
-                                    }}>
-                                        <IoIosRestaurant
-                                            size={window.innerWidth < 450 ? 40 : 60}
-                                            className="restaurant-list-leading"
-                                        />
-                                        <div className="restaurant-list-item-details">
-                                            <span className="add-restaurant">Add a new Restaurant</span>
-                                        </div>
-                                        <IoIosArrowRoundForward
-                                            size={window.innerWidth < 450 ? 40 : 55}
-                                            className="restaurant-list-trailing"
+                                ) : null
+                            }
+                            <div className="restaurant-list-item" onClick={() => {
+                                navigate("/dashboard/add-restaurant")
+                            }}>
+                                <IoIosRestaurant
+                                    size={window.innerWidth < 450 ? 40 : 60}
+                                    className="restaurant-list-leading"
+                                />
+                                <div className="restaurant-list-item-details">
+                                    <span className="add-restaurant">Add a new Restaurant</span>
+                                </div>
+                                <IoIosArrowRoundForward
+                                    size={window.innerWidth < 450 ? 40 : 55}
+                                    className="restaurant-list-trailing"
+                                />
+                            </div>
+                            {
+                                loading ? (
+                                    <div className="list-loading-container">
+                                        <TailSpin
+                                            width={60}
+                                            ariaLabel="loading-indicator"
                                         />
                                     </div>
-                                )
+                                ) : null
                             }
                         </div>
 
