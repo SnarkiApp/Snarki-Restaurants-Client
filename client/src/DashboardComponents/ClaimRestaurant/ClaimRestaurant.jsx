@@ -2,6 +2,7 @@ import React, {useState, useCallback} from "react";
 import { useLazyQuery, useMutation } from '@apollo/client';
 import {useDropzone} from 'react-dropzone';
 import { useSelector } from 'react-redux';
+import { TailSpin } from "react-loader-spinner";
 import {POST_PRESIGNED_URLS} from "./queries/claimRestaurants";
 import {ADD_CLAIM_DOCUMENTS} from "./mutation/addDocuments";
 
@@ -9,6 +10,7 @@ import "./ClaimRestaurant.css";
 
 const ClaimRestaurant = () => {
     const [message, setMessage] = useState({});
+    const [loading, setLoading] = useState(false);
     const claimRestaurant = useSelector((state) => state.addClaimRestaurant);
     const [postPresignedUrls] = useLazyQuery(POST_PRESIGNED_URLS);
     const [addDocuments] = useMutation(ADD_CLAIM_DOCUMENTS);
@@ -57,6 +59,7 @@ const ClaimRestaurant = () => {
 
         }
 
+        setLoading(true);
         for(let index = 0; index < postUrls.length; index++) {
             const content = JSON.parse(postUrls[index]);
 
@@ -88,12 +91,14 @@ const ClaimRestaurant = () => {
         });
 
         if (response.data.addClaimDocuments.code !== 200) {
+            setLoading(false);
             setMessage({type: "failure", message: response.data.addClaimDocuments.message});
             return;
         }
 
         if (success) setMessage({type: "success", message: "Files Uploaded successfully!"});
         else setMessage({type: "failure", message: "Something went wrong! Please try again!"});
+        setLoading(false);
 
     }, []);
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
@@ -116,6 +121,14 @@ const ClaimRestaurant = () => {
         <div className="claim-restaurant-upload-title claim-restaurant-spacing">
             Upload Claim Documents
         </div>
+        {
+            loading ? (
+                <div className="processing-message">
+                    {"Uploading... "}
+                    <TailSpin ariaLabel="loading-indicator" width={30} />
+                </div>
+            ) : null
+        }
         <div {...getRootProps()} className="upload-document-container">
             <input {...getInputProps()} />
             {
