@@ -199,11 +199,9 @@ const AddRestaurantBasic = () => {
             const cleanLatitude = parseFloat(cleanData(values.latitude));
             const cleanLongitude = parseFloat(cleanData(values.longitude));
 
-            const cuisines = cleanCuisines.split(",");
-
             const finalData = {
                 input: {
-                    cuisines,
+                    cuisines: cleanCuisines,
                     name: cleanRestaurantName,
                     address: cleanAddress,
                     city: cleanCity,
