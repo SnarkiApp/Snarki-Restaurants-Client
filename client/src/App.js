@@ -25,6 +25,7 @@ const App = () => {
     if (!loading && !error) {
       setUser(data.me.meData);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   const navbarRefs = [

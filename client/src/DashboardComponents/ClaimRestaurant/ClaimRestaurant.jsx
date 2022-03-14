@@ -1,7 +1,8 @@
-import React, {useState, useCallback} from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import { useLazyQuery, useMutation } from '@apollo/client';
 import {useDropzone} from 'react-dropzone';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { TailSpin } from "react-loader-spinner";
 import {POST_PRESIGNED_URLS} from "./queries/claimRestaurants";
 import {ADD_CLAIM_DOCUMENTS} from "./mutation/addDocuments";
@@ -9,6 +10,7 @@ import {ADD_CLAIM_DOCUMENTS} from "./mutation/addDocuments";
 import "./ClaimRestaurant.css";
 
 const ClaimRestaurant = () => {
+    let navigate = useNavigate();
     const [message, setMessage] = useState({});
     const [uploadStatus, setUploadStatus] = useState({});
     const [loading, setLoading] = useState(false);
@@ -16,6 +18,12 @@ const ClaimRestaurant = () => {
     const claimRestaurant = useSelector((state) => state.addClaimRestaurant);
     const [postPresignedUrls] = useLazyQuery(POST_PRESIGNED_URLS);
     const [addDocuments] = useMutation(ADD_CLAIM_DOCUMENTS);
+
+    useEffect(() => {
+        if (!claimRestaurant.addClaimRestaurant._id) {
+            navigate("/dashboard");
+        }
+    });
 
     const onDrop = useCallback(async (acceptedFiles) => {
         setMessage({});
@@ -93,11 +101,12 @@ const ClaimRestaurant = () => {
             if (documentKeys.size) setDocumentKeys(new Set());
         }
         setLoading(false);
-
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
-    const submitClaimRequest = async () => {        
+    const submitClaimRequest = async () => {
         if (documentKeys.size && uploadStatus.type === "success") {
             const response = await addDocuments({
                 variables: {

@@ -130,6 +130,7 @@ const AddRestaurantBasic = () => {
             category: "register",
             type: "application/pdf"
         });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
@@ -139,6 +140,7 @@ const AddRestaurantBasic = () => {
             category: "images",
             type: "image/"
         });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const {
         getRootProps: getImagesRootProps,
