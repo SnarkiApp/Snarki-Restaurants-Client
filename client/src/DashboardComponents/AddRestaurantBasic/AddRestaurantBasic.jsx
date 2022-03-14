@@ -160,12 +160,12 @@ const AddRestaurantBasic = () => {
             errors.postalCode = 'should be 1-6 digits';
         }
 
-        if (!/^[0-9]{1,8}$/.test(values.latitude)) {
-            errors.latitude = 'should be at max 8 digits';
+        if (!/^[-]?\d+(\.\d+)?$/.test(values.latitude)) {
+            errors.latitude = 'eg: 38.8951';
         }
 
-        if (!/^[0-9]{1,8}$/.test(values.longitude)) {
-            errors.longitude = 'should be at max 8 digits';
+        if (!/^[-]?\d+(\.\d+)?$/.test(values.longitude)) {
+            errors.longitude = 'eg: -77.0364';
         }
 
         if (!/^[0-9]*$/.test(values.contact)) {
@@ -370,7 +370,7 @@ const AddRestaurantBasic = () => {
                 <div className="flex-container">
                     <div className="add-restaurant-div">
                         <label htmlFor="cuisines" className="add-restaurant-label">
-                            Cuisines (comma separated)<span className="required-star">* </span>
+                            Cuisines eg: Deli, Pizza<span className="required-star">* </span>
                             {formik.touched['cuisines'] && formik.errors.cuisines ?
                                 <span className="add-restaurant-error">{formik.errors.cuisines}</span>
                                 : null
