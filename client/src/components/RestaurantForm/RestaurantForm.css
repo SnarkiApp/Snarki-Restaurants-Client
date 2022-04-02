@@ -2,6 +2,7 @@
     width: 100vw;
     max-width:100%;
     margin-top: 100px;
+    z-index: 0;
 }
 
 .restaurant-form-container {
