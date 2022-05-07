@@ -11,6 +11,8 @@ import ClaimRestaurant from './DashboardComponents/ClaimRestaurant/ClaimRestaura
 import AddRestaurantBasic from './DashboardComponents/AddRestaurantBasic/AddRestaurantBasic';
 import Settings from './DashboardComponents/Settings/Settings';
 import { UserContext } from './providers/User/UserProvider';
+import PreForgotPassword from './components/ForgotPassword/PreForgotPassword/PreForgotPassword';
+import PostForgotPassword from './components/ForgotPassword/PostForgotPassword/PostForgotPassword';
 
 const NavRoutes = ({propRef}) => {
     const {user} = useContext(UserContext);
@@ -30,6 +32,8 @@ const NavRoutes = ({propRef}) => {
                 <Route exact path='/dashboard/add-restaurant' element={<AddRestaurantBasic />}/>
                 <Route exact path='/dashboard/settings' element={<Settings />}/>
             </Route>
+            <Route exact path='/preforgotpassword' element={<PreForgotPassword />} />
+            <Route exact path='/postforgotpassword/:token' element={<PostForgotPassword />} />
         </Routes>
     );
 };

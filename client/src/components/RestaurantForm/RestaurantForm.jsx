@@ -139,7 +139,15 @@ const RestaurantForm = () => {
                                 />
                                 <label htmlFor="rememberMe">Remember me</label>
                             </div>
-                            <span>Forgot Password</span>
+                            {
+                                isLogin  ? (
+                                    <span
+                                        onClick={() => navigate("/preforgotpassword")}
+                                    >
+                                        Forgot Password
+                                    </span>
+                                ) : null
+                            }
                         </div>
 
                         <button type="submit" className="restaurant-form-submit">{
