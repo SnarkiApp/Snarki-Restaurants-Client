@@ -126,6 +126,18 @@ const PostForgotPassword = () => {
 
                         <button type="submit" className="post-forgot-password-submit">Submit</button>
                     </form>
+
+                    <div className="login-message">
+                        {
+                            <>
+                                Try Logging again?
+                                <span onClick={() => {
+                                    setErrorMessage(null);
+                                    navigate('/snarki/login');
+                                }}> Login</span>
+                            </>
+                        }
+                    </div>
                 </div>
             </div>
         </div>  

@@ -142,6 +142,7 @@ const RestaurantForm = () => {
                             {
                                 isLogin  ? (
                                     <span
+                                        className="forgot-password-link"
                                         onClick={() => navigate("/preforgotpassword")}
                                     >
                                         Forgot Password

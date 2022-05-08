@@ -89,6 +89,10 @@
     font-weight: 500;
 }
 
+.forgot-password-link {
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1000px) {
 
     .restaurant-form-container {
