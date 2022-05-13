@@ -233,7 +233,7 @@ const ClaimRestaurant = () => {
                         message.type === "success" ? 
                             <div className="additional-message">
                                 Snarki Support Team will verify the documents and 
-                                will update you within 24-48 hours
+                                will update you within 7 days
                             </div>
                         : null
                     }
