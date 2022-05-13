@@ -7,7 +7,6 @@ export const ADD_RESTAURANT_DATA = gql`
         registerRestaurants(
             input: $input
         ) {
-            _id
             code
             message
         }

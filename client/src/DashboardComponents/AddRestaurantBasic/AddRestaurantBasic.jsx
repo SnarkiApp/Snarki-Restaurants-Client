@@ -156,8 +156,12 @@ const AddRestaurantBasic = () => {
             if (!values[field]) errors[field] = 'is required';
         });
 
-        if (!/^[0-9]{1,6}$/.test(values.postalCode)) {
-            errors.postalCode = 'should be 1-6 digits';
+        if (!/\b\d\d-\d{7}\b/.test(values.ein)) {
+            errors.ein = 'XX-XXXXXXX';
+        }
+
+        if (!/(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/.test(values.postalCode)) {
+            errors.postalCode = 'XXXXX or XXXXX-XXXX';
         }
 
         if (!/^[-]?\d+(\.\d+)?$/.test(values.latitude)) {
@@ -178,6 +182,7 @@ const AddRestaurantBasic = () => {
     const formik = useFormik({
         initialValues: {
             name: '',
+            ein: '',
             postalCode: '',
             address: '',
             city: '',
@@ -189,21 +194,23 @@ const AddRestaurantBasic = () => {
             longitude: ''
         },
         validate,
-        onSubmit: async (values) => {
-            const cleanRestaurantName = cleanData(values.name);
-            const cleanAddress = cleanData(values.address);
-            const cleanCity = cleanData(values.city);
-            const cleanState = cleanData(values.state);
-            const cleanPostalCode = cleanData(values.postalCode);
-            const cleanContact = cleanData(values.contact);
+        onSubmit: async (values, { resetForm }) => {
+            const cleanRestaurantName = cleanData(values.name).trim();
+            const cleanEin = cleanData(values.ein).trim();
+            const cleanAddress = cleanData(values.address).trim();
+            const cleanCity = cleanData(values.city).trim();
+            const cleanState = cleanData(values.state).trim();
+            const cleanPostalCode = cleanData(values.postalCode).trim();
+            const cleanContact = cleanData(values.contact).trim();
             const cleanCuisines = cleanData(values.cuisines);
-            const cleanHours = cleanData(values.hours);
-            const cleanLatitude = parseFloat(cleanData(values.latitude));
-            const cleanLongitude = parseFloat(cleanData(values.longitude));
+            const cleanHours = cleanData(values.hours).trim();
+            const cleanLatitude = parseFloat(cleanData(values.latitude).trim());
+            const cleanLongitude = parseFloat(cleanData(values.longitude).trim());
 
             const finalData = {
                 input: {
                     cuisines: cleanCuisines,
+                    ein: cleanEin,
                     name: cleanRestaurantName,
                     address: cleanAddress,
                     city: cleanCity,
@@ -211,10 +218,8 @@ const AddRestaurantBasic = () => {
                     postalCode: cleanPostalCode,
                     contact: cleanContact,
                     hours: cleanHours,
-                    location: {
-                        type: "Point",
-                        coordinates: [cleanLongitude, cleanLatitude]
-                    },
+                    longitude: cleanLongitude,
+                    latitude: cleanLatitude,
                     documents: uploadStatus["register"],
                     images: uploadStatus["images"]
                 }
@@ -225,15 +230,17 @@ const AddRestaurantBasic = () => {
             });
 
             const response = addRestaurantResponse.data.registerRestaurants;
-            if (response.code === 409) {
-                setMessage({type: "failure", message: response.message});
-                bottomRef.current.scrollIntoView({ behavior: 'smooth' });
-            } else if (response.code === 200) {
-                navigate("/dashboard");
+            if (response.message) {
+                setMessage({
+                    type: response.code === 200 ? "success": "failure",
+                    message: response.message
+                });
+
+                if (response.code === 200) resetForm();
             } else {
                 setMessage({type: "failure", message: "Something went wrong!"});
-                bottomRef.current.scrollIntoView({ behavior: 'smooth' });
             }
+            bottomRef.current.scrollIntoView({ behavior: 'smooth' });
         },
     });
 
@@ -264,7 +271,26 @@ const AddRestaurantBasic = () => {
                 </div>
 
                 <div className="flex-container">
-                    <div className="add-restaurant-full-div">
+                    <div className="add-restaurant-div">
+                        <label htmlFor="ein" className="add-restaurant-label">
+                            EIN<span className="required-star">* </span>
+                            {formik.touched['ein'] && formik.errors.ein ?
+                                <span className="add-restaurant-error">{formik.errors.ein}</span>
+                                : null
+                            }
+                        </label>
+                        <input
+                            id="ein"
+                            name="ein"
+                            type="text"
+                            autoComplete="off"
+                            onBlur={formik.handleBlur}
+                            className="add-restaurant-input"
+                            onChange={formik.handleChange}
+                            value={formik.values.ein}
+                        />
+                    </div>
+                    <div className="add-restaurant-div">
                         <label htmlFor="address" className="add-restaurant-label">
                             Address<span className="required-star">* </span>
                             {formik.touched['address'] && formik.errors.address ?
@@ -525,8 +551,8 @@ const AddRestaurantBasic = () => {
                 {
                     message.type === "success" ? 
                         <div className="additional-message">
-                            Snarki Support Team will verify detailsimport { useNavigate } from "react-router-dom"; and 
-                            will update you within 24-48 hours
+                            Snarki Support Team will verify details and 
+                            will update you in within a week
                         </div>
                     : null
                 }
