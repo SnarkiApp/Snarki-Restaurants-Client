@@ -41,6 +41,28 @@
 .message-green { color: green; }
 .message-red { color: red; }
 
+.claim-restaurant-submit {
+    display: block;
+    width: 30%;
+    margin: 60px auto 0;
+    padding: 20px 10px;
+    background-color: #6c63ff;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+}
+
+.claim-restaurant-submit:hover {
+    background-color: #483dff;
+    cursor: pointer;
+}
+
+.claim-restaurant-full-div {
+    width: 85%;
+    margin:15px 0 0 15px;
+}
+
 @media screen and (max-width: 880px) {
     .claim-restaurant-container {
         width: 90%;

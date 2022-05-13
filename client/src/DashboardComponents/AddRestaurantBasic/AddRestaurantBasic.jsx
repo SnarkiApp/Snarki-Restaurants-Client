@@ -4,7 +4,6 @@ import classNames from "classnames";
 import { useDropzone } from 'react-dropzone';
 import { TailSpin } from "react-loader-spinner";
 import { cleanData } from "../../utils/DOMPurify";
-import { useNavigate } from "react-router-dom";
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { ADD_RESTAURANT_DATA } from "./mutation/addRestaurantDetails";
 import { POST_PRESIGNED_URLS } from "../ClaimRestaurant/queries/claimRestaurants";
@@ -13,7 +12,6 @@ import "./AddRestaurantBasic.css";
 
 const AddRestaurantBasic = () => {
     const bottomRef = useRef(null);
-    const navigate = useNavigate();
     const [message, setMessage] = useState({});
     const [loading, setLoading] = useState(false);
     const [imageLoading, setImagesLoading] = useState(false);

@@ -1,15 +1,18 @@
-import React, {useState, useCallback, useEffect} from "react";
+import React, {useState, useCallback, useEffect, useRef} from "react";
+import { useFormik } from 'formik';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import {useDropzone} from 'react-dropzone';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { TailSpin } from "react-loader-spinner";
+import { cleanData } from "../../utils/DOMPurify";
 import {POST_PRESIGNED_URLS} from "./queries/claimRestaurants";
 import {ADD_CLAIM_DOCUMENTS} from "./mutation/addDocuments";
 
 import "./ClaimRestaurant.css";
 
 const ClaimRestaurant = () => {
+    const bottomRef = useRef(null);
     let navigate = useNavigate();
     const [message, setMessage] = useState({});
     const [uploadStatus, setUploadStatus] = useState({});
@@ -37,10 +40,10 @@ const ClaimRestaurant = () => {
         });
 
         if (data.postUploadUrl.code === 409) {
-            setMessage({type: "failure", message: data.postUploadUrl.message});
+            setUploadStatus({type: "failure", message: data.postUploadUrl.message});
             return;
         } else if (data.postUploadUrl.code !== 200) {
-            setMessage({type: "failure", message: "Something went wrong Please try again!"});
+            setUploadStatus({type: "failure", message: "Something went wrong Please try again!"});
             return;
         }
 
@@ -106,27 +109,47 @@ const ClaimRestaurant = () => {
     }, []);
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
-    const submitClaimRequest = async () => {
-        if (documentKeys.size && uploadStatus.type === "success") {
-            const response = await addDocuments({
-                variables: {
-                    documents: [...documentKeys],
-                    _id: claimRestaurant.addClaimRestaurant._id
-                }
-            });
-            
-            if (loading) setLoading(false);
-            if (documentKeys.size) setDocumentKeys(new Set());
-            if (response.data.addClaimDocuments.code !== 200) {
-                setMessage({type: "failure", message: response.data.addClaimDocuments.message});
-                return;
-            }
-            setMessage({type: "success", message: 'Claim Request Submitted!!'});
+    const validate = values => {
+        const errors = {};
+
+        if (!/\b\d\d-\d{7}\b/.test(values.ein)) {
+            errors.ein = 'XX-XXXXXXX';
         }
-        if (documentKeys.size) setDocumentKeys(new Set());
-        if (loading) setLoading(false);
-    }
-    
+
+        return errors;
+    };
+
+    const formik = useFormik({
+        initialValues: {
+            ein: ''
+        },
+        validate,
+        onSubmit: async (values, { resetForm }) => {
+            const cleanEin = cleanData(values.ein).trim();
+
+            if (documentKeys.size && uploadStatus.type === "success") {
+                const response = await addDocuments({
+                    variables: {
+                        ein: cleanEin,
+                        documents: [...documentKeys],
+                        _id: claimRestaurant.addClaimRestaurant._id
+                    }
+                });
+                
+                if (response.data.addClaimDocuments.code !== 200) {
+                    setMessage({type: "failure", message: response.data.addClaimDocuments.message});
+                } else {
+                    setMessage({type: "success", message: 'Claim Request Submitted!!'});
+                    resetForm();
+                }
+                bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+            }
+            if (documentKeys.size) setDocumentKeys(new Set());
+            if (loading) setLoading(false);
+            
+        },
+    });
+
     return (
     <div className="claim-restaurant-container">
         <div className="claim-restaurant-spacing">
@@ -142,38 +165,65 @@ const ClaimRestaurant = () => {
                 {claimRestaurant.addClaimRestaurant.postalCode}
             </div>
         </div>
-        <div className="claim-restaurant-upload-title claim-restaurant-spacing">
-            Upload Claim Documents
-        </div>
-        {
-            Object.keys(uploadStatus).length ?
-                <div className="add-restaurant-upload-message">
-                    <span className={uploadStatus.type === "success" ? "message-green" : "message-red"}>{uploadStatus.message}</span>
-                </div> : (
-                    loading ?
-                    <div className="processing-message">
-                        {"Uploading... "}
-                        <TailSpin ariaLabel="loading-indicator" width={30} />
-                    </div> : null
-                )
-        }
-        <div {...getRootProps()} className="upload-document-container">
-            <input {...getInputProps()} />
-            {
-                isDragActive ?
-                <p>Drop files here ...</p> :
-                <p>Drag 'n' drop / Click</p>
-            }
-        </div>
 
-        <button
-            type="submit"
-            className="add-restaurant-submit"
-            disabled={!documentKeys.size || uploadStatus.type !== "success"}
-            onClick={submitClaimRequest}
-        >
-            Submit
-        </button>
+        <form onSubmit={formik.handleSubmit}>
+
+            <div className="claim-restaurant-spacing">
+                <div className="claim-restaurant-title">Required Details:</div>
+            </div>
+            <div className="claim-restaurant-full-div">
+                <label htmlFor="ein">
+                    EIN<span className="required-star">* </span>
+                    {formik.touched['ein'] && formik.errors.ein ?
+                        <span className="message-red">{formik.errors.ein}</span>
+                        : null
+                    }
+                </label>
+                <input
+                    id="ein"
+                    name="ein"
+                    type="text"
+                    autoComplete="off"
+                    className="add-restaurant-input"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.ein}
+                />
+            </div>
+
+            <div className="claim-restaurant-upload-title claim-restaurant-spacing">
+                Upload Claim Documents
+            </div>
+            {
+                Object.keys(uploadStatus).length ?
+                    <div>
+                        <span className={uploadStatus.type === "success" ? "message-green" : "message-red"}>{uploadStatus.message}</span>
+                    </div> : (
+                        loading ?
+                        <div className="processing-message">
+                            {"Uploading... "}
+                            <TailSpin ariaLabel="loading-indicator" width={30} />
+                        </div> : null
+                    )
+            }
+            <div {...getRootProps()} className="upload-document-container">
+                <input {...getInputProps()} />
+                {
+                    isDragActive ?
+                    <p>Drop files here ...</p> :
+                    <p>Drag 'n' drop / Click</p>
+                }
+            </div>
+
+            <button
+                ref={bottomRef}
+                type="submit"
+                className="claim-restaurant-submit"
+                disabled={!documentKeys.size || uploadStatus.type !== "success"}
+            >
+                Submit
+            </button>
+        </form>
 
         {
             Object.keys(message).length ?
