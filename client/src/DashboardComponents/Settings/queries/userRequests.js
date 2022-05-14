@@ -13,6 +13,7 @@ export const USER_REQUESTS = gql`
                 postalCode
                 status
                 type
+                reason
             }
         }
     }

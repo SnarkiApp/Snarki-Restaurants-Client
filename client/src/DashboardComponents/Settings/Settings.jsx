@@ -37,6 +37,7 @@ const Settings = () => {
                                     <th>Address</th>
                                     <th>Postal Code</th>
                                     <th>Status</th>
+                                    <th>Comments</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,7 @@ const Settings = () => {
                                             <td>{request.address}, {request.city}, {request.state}</td>
                                             <td>{request.postalCode}</td>
                                             <td>{request.status}</td>
+                                            <td>{request.reason}</td>
                                         </tr>
                                     ))
                                 }
