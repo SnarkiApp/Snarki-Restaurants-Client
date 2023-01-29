@@ -21,6 +21,7 @@ const PostForgotPassword = () => {
         if (user) {
             return navigate("/");
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
     const validate = values => {

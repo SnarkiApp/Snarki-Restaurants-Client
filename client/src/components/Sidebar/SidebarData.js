@@ -49,7 +49,7 @@ export const DashboardSidebarData = [
     cName: 'sidebar-text'
   },
   {
-    title: 'Dashbaord',
+    title: 'Dashboard',
     path: '/dashboard',
     icon: <AiIcons.AiFillDashboard />,
     cName: 'sidebar-text'
@@ -58,6 +58,12 @@ export const DashboardSidebarData = [
     title: 'Settings',
     path: '/dashboard/settings',
     icon: <AiIcons.AiFillSetting />,
+    cName: 'sidebar-text'
+  },
+  {
+    title: 'Billing',
+    path: '/dashboard/billing',
+    icon: <AiIcons.AiFillBank    />,
     cName: 'sidebar-text'
   },
   {

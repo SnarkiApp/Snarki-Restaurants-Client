@@ -1,0 +1,29 @@
+.success-container {
+    width: 100vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 60px 0;
+}
+
+.success-parent-container {
+    width: 60vw;
+}
+
+.pricing-submit {
+    width: 60%;
+    display: block;
+    padding: 20px 10px;
+    background-color: #746AB0;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    margin: 60px auto;
+}
+
+.pricing-submit:hover {
+    background-color: #504786;
+    cursor: pointer;
+}

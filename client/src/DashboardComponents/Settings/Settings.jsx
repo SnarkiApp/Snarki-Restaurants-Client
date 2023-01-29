@@ -28,7 +28,7 @@ const Settings = () => {
             <div className="requests-title">Requests</div>
             <div className="table-container">
                 {
-                    requests.length ? (
+                    requests && requests.length ? (
                         <table className="requests">
                             <thead>
                                 <tr>
@@ -49,7 +49,7 @@ const Settings = () => {
                                             <td>{request.address}, {request.city}, {request.state}</td>
                                             <td>{request.postalCode}</td>
                                             <td>{request.status}</td>
-                                            <td>{request.reason}</td>
+                                            <td>{request.reason ? request.reason : "--"}</td>
                                         </tr>
                                     ))
                                 }

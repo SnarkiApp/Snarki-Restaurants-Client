@@ -1,0 +1,90 @@
+.billing-container {
+    width: 80vw;
+    margin: 30px auto;
+}
+
+.user-details {
+    margin: 80px 0 40px;
+}
+
+.billing-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.details-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.requests {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+}
+  
+.requests td, .requests th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.requests tr:nth-child(even){background-color: #f2f2f2;}
+
+.requests tr:hover {background-color: #ddd;}
+
+.requests th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+.paynow {
+    width: 80%;
+    display: block;
+    padding: 10px;
+    background-color: #746AB0;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+    margin: 0 auto;
+}
+
+.paynow:hover {
+    background-color: #504786;
+    cursor: pointer;
+}
+
+.manage-billing-link {
+    color: blue;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.billing-subheading {
+    margin: 10px 0 20px 0;
+}
+
+.status {
+    text-align: center;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 500px) {
+    .settings-container {
+        width: 95vw;
+    }
+
+    .user-details {
+        margin: 40px 0;
+    }
+}

@@ -1,0 +1,14 @@
+.message-container {
+    width: 100vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 60px 0;
+}
+
+.message {
+    width: 60%;
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+}

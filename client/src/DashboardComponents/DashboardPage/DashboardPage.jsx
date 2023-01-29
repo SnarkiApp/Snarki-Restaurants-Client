@@ -43,97 +43,93 @@ const DashboardPage = () => {
 
     return (
         <div className="dashboard-page-container">
-            {
-                user && !user.verified ? (
-                    <div className="unverified-actions">
+            <div className="unverified-actions">
 
-                        <form onSubmit={formik.handleSubmit}>
-                            <label
-                                htmlFor="restaurantName"
-                                className="unverified-actions-heading"
-                            >
-                                Search Your Restaurant
-                            </label>
-                            <div className="actions-input-container">
-                                <input
-                                    type="text"
-                                    autoComplete="off"
-                                    id="restaurantName"
-                                    name="restaurantName"
-                                    label="restaurantName"
-                                    placeholder="Restaurant Name"
-                                    onChange={formik.handleChange}
-                                    className="unverified-actions-input"
-                                    value={formik.values.restaurantName}
-                                />
-                                <button type="submit">
-                                    <IoIosSearch
-                                        size={window.innerWidth < 450 ? 25 : 30}
-                                        className="restaurant-list-trailing"
-                                    />
-                                </button>
-                            </div>
-                        </form>
-
-                        <div className="restaurants-list-container">
-                            {
-                                restaurantsList.length > 0 ? (
-                                    restaurantsList.map((restaurant, index) => (
-                                        <div className="restaurant-list-item" key={index} onClick={async () => {
-                                            await dispatch(setClaimRestaurant(restaurant));
-                                            navigate("/dashboard/claim-restaurant");
-                                        }}>
-                                            <IoIosRestaurant
-                                                size={window.innerWidth < 450 ? 40 : 60}
-                                                className="restaurant-list-leading"
-                                            />
-                                            <div className="restaurant-list-item-details">
-                                                <span className="restaurant-name">{restaurant.name}</span>
-                                                <span className="restaurant-address">
-                                                    {restaurant.address}{", "}
-                                                    {restaurant.city}{", "}
-                                                    {restaurant.state}{", "}
-                                                    {restaurant.postalCode}
-                                                </span>
-                                            </div>
-                                            <IoIosArrowRoundForward
-                                                size={window.innerWidth < 450 ? 40 : 55}
-                                                className="restaurant-list-trailing"
-                                            />
-                                        </div>
-                                    ))
-                                ) : null
-                            }
-                            <div className="restaurant-list-item" onClick={() => {
-                                navigate("/dashboard/add-restaurant")
-                            }}>
-                                <IoIosRestaurant
-                                    size={window.innerWidth < 450 ? 40 : 60}
-                                    className="restaurant-list-leading"
-                                />
-                                <div className="restaurant-list-item-details">
-                                    <span className="add-restaurant">Add a new Restaurant</span>
-                                </div>
-                                <IoIosArrowRoundForward
-                                    size={window.innerWidth < 450 ? 40 : 55}
+                    <form onSubmit={formik.handleSubmit}>
+                        <label
+                            htmlFor="restaurantName"
+                            className="unverified-actions-heading"
+                        >
+                            Search Your Restaurant
+                        </label>
+                        <div className="actions-input-container">
+                            <input
+                                type="text"
+                                autoComplete="off"
+                                id="restaurantName"
+                                name="restaurantName"
+                                label="restaurantName"
+                                placeholder="Restaurant Name"
+                                onChange={formik.handleChange}
+                                className="unverified-actions-input"
+                                value={formik.values.restaurantName}
+                            />
+                            <button type="submit">
+                                <IoIosSearch
+                                    size={window.innerWidth < 450 ? 25 : 30}
                                     className="restaurant-list-trailing"
                                 />
-                            </div>
-                            {
-                                loading ? (
-                                    <div className="list-loading-container">
-                                        <TailSpin
-                                            width={60}
-                                            ariaLabel="loading-indicator"
+                            </button>
+                        </div>
+                    </form>
+
+                    <div className="restaurants-list-container">
+                        {
+                            restaurantsList.length > 0 ? (
+                                restaurantsList.map((restaurant, index) => (
+                                    <div className="restaurant-list-item" key={index} onClick={async () => {
+                                        await dispatch(setClaimRestaurant(restaurant));
+                                        navigate("/dashboard/claim-restaurant");
+                                    }}>
+                                        <IoIosRestaurant
+                                            size={window.innerWidth < 450 ? 40 : 60}
+                                            className="restaurant-list-leading"
+                                        />
+                                        <div className="restaurant-list-item-details">
+                                            <span className="restaurant-name">{restaurant.name}</span>
+                                            <span className="restaurant-address">
+                                                {restaurant.address}{", "}
+                                                {restaurant.city}{", "}
+                                                {restaurant.state}{", "}
+                                                {restaurant.postalCode}
+                                            </span>
+                                        </div>
+                                        <IoIosArrowRoundForward
+                                            size={window.innerWidth < 450 ? 40 : 55}
+                                            className="restaurant-list-trailing"
                                         />
                                     </div>
-                                ) : null
-                            }
+                                ))
+                            ) : null
+                        }
+                        <div className="restaurant-list-item" onClick={() => {
+                            navigate("/dashboard/add-restaurant")
+                        }}>
+                            <IoIosRestaurant
+                                size={window.innerWidth < 450 ? 40 : 60}
+                                className="restaurant-list-leading"
+                            />
+                            <div className="restaurant-list-item-details">
+                                <span className="add-restaurant">Add a new Restaurant</span>
+                            </div>
+                            <IoIosArrowRoundForward
+                                size={window.innerWidth < 450 ? 40 : 55}
+                                className="restaurant-list-trailing"
+                            />
                         </div>
-
+                        {
+                            loading ? (
+                                <div className="list-loading-container">
+                                    <TailSpin
+                                        width={60}
+                                        ariaLabel="loading-indicator"
+                                    />
+                                </div>
+                            ) : null
+                        }
                     </div>
-                ) : null
-            }
+
+            </div>
         </div>
     );
 };
